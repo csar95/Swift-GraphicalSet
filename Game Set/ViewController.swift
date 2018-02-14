@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var cheatButton: UIButton!
     @IBOutlet var cardButtons: [UIButton]!
     
+    @IBOutlet weak var boardView: BoardView!
+    
     @IBOutlet weak var pointsLabel: UILabel!
     @IBOutlet weak var pointsIPhoneLabel: UILabel!
     
@@ -34,7 +36,7 @@ class ViewController: UIViewController {
         
         pointsIPhoneLabel.isHidden = true
         
-        updateViewFromModel()
+        //updateViewFromModel()
     }
 
     @IBAction func touchCard(_ sender: UIButton) {

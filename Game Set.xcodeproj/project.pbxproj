@@ -15,6 +15,8 @@
 		AA7F922D201B97F30029FC08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA7F922B201B97F30029FC08 /* LaunchScreen.storyboard */; };
 		AA7F9236201BA5830029FC08 /* SetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F9235201BA5830029FC08 /* SetModel.swift */; };
 		AA7F9238201BA6A40029FC08 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F9237201BA6A40029FC08 /* Card.swift */; };
+		AADD94DA20349B0F0072E17C /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADD94D920349B0F0072E17C /* BoardView.swift */; };
+		AADD94DC2034A9020072E17C /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADD94DB2034A9020072E17C /* Grid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		AA7F922E201B97F30029FC08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA7F9235201BA5830029FC08 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
 		AA7F9237201BA6A40029FC08 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		AADD94D920349B0F0072E17C /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		AADD94DB2034A9020072E17C /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +67,10 @@
 				AA7F9224201B97F30029FC08 /* ViewController.swift */,
 				AA7F9235201BA5830029FC08 /* SetModel.swift */,
 				AA7F9237201BA6A40029FC08 /* Card.swift */,
+				AADD94DB2034A9020072E17C /* Grid.swift */,
 				AA73637D201E3A13007D56BE /* CardFeatures.swift */,
 				AA7F9226201B97F30029FC08 /* Main.storyboard */,
+				AADD94D920349B0F0072E17C /* BoardView.swift */,
 				AA7F9234201B98220029FC08 /* Supporting Files */,
 				AA7F922E201B97F30029FC08 /* Info.plist */,
 			);
@@ -156,7 +162,9 @@
 				AA7F9225201B97F30029FC08 /* ViewController.swift in Sources */,
 				AA7F9236201BA5830029FC08 /* SetModel.swift in Sources */,
 				AA7F9223201B97F30029FC08 /* AppDelegate.swift in Sources */,
+				AADD94DA20349B0F0072E17C /* BoardView.swift in Sources */,
 				AA7F9238201BA6A40029FC08 /* Card.swift in Sources */,
+				AADD94DC2034A9020072E17C /* Grid.swift in Sources */,
 				AA73637E201E3A13007D56BE /* CardFeatures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
