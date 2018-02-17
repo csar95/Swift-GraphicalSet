@@ -230,18 +230,18 @@ class SetModel {
     
     private func addCardToDeck(color: UIColor, shape: String, shade0: Double, shade1: Double, times: Int, attrString: NSAttributedString) {
         
-        var c = Colors.green, sp = Shapes.circle, t = Numbers.one, sd = Shading.open
+        var c = Colors.green, sp = Shapes.oval, t = Numbers.one, sd = Shading.open
         
         switch color{
             case UIColor.green: c = Colors.green
             case UIColor.red: c = Colors.red
-            case UIColor.blue: c = Colors.blue
+            case UIColor.blue: c = Colors.purple
             default: break
         }
         switch shape{
-            case "●": sp = Shapes.circle
-            case "■": sp = Shapes.square
-            case "▲": sp = Shapes.triangle
+            case "●": sp = Shapes.oval
+            case "■": sp = Shapes.diamond
+            case "▲": sp = Shapes.squiggle
             default: break
         }
         switch shade0{

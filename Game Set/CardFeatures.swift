@@ -11,13 +11,13 @@ import Foundation
 enum Colors {
     case green
     case red
-    case blue
+    case purple
 }
 
 enum Shapes {
-    case circle
-    case square
-    case triangle
+    case oval
+    case diamond
+    case squiggle
 }
 
 enum Numbers {
