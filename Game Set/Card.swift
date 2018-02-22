@@ -21,14 +21,11 @@ struct Card: Hashable {
     let shape: Shapes
     let times: Numbers
     let shade: Shading
-    
-    let content: NSAttributedString
-    
+        
     var isMatched = false
     
-    init(content: NSAttributedString, color: Colors, shape: Shapes, times: Numbers, shade: Shading)
+    init(color: Colors, shape: Shapes, times: Numbers, shade: Shading)
     {
-        self.content = content
         self.color = color
         self.shape = shape
         self.times = times

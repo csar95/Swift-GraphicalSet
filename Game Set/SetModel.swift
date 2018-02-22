@@ -22,85 +22,80 @@ class SetModel {
     var points = 0
     //private(set) var cardsBeingPlayed = [Card]()
     private(set) var selectedCards = [Card]()
-    var deck = [Card]()
+    var deck = Deck()
     
-    var board = [Card?]()
+    var board = [Card]()
         
     init() {
-        generateDeck()
-        
-        // Shuffle cards
-        deck = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: deck) as! [Card]
-        
         // Initialize board with 12 cards
-        for i in 0..<24 {
-            i < 12 ? addCardToBoard(at: nil) : board.append(nil)
+        for _ in 0..<12 {
+            addCardToBoard(at: nil)
         }
     }
     
     func chooseCard(at index: Int) {
         
-        if let chosenCard = board[index] {
-            // If chosen card is not currently selected
-            if (!selectedCards.contains(chosenCard)) {
-                selectedCards.append(chosenCard)
-                
-                if (selectedCards.count == 3) {
-                    // Check if selected cards form a set
-                    if checkSet(in: selectedCards) {
-                        if !deck.isEmpty {
-                            if (countOfNotNil(in: board) > 12) {
-                                // Remove cards that form set
-                                for card in selectedCards {
-                                    if let index = getIndexOnBoard(of: card) {
-                                        board[index] = nil
-                                    }
-                                    else {
-                                        print("ERROR: Selected card not found in board")
-                                    }
-                                }
-                            }
-                            else {
-                                // Subtitute cards in set for new ones from the deck
-                                for card in selectedCards {
-                                    if let index = getIndexOnBoard(of: card) {
-                                        addCardToBoard(at: index)
-                                    }
-                                    else {
-                                        print("ERROR: Selected card not found in board")
-                                    }
-                                }
-                            }
-                        }
-                        // If deck is empty
-                        else {
+        let chosenCard = board[index]
+        
+        // If chosen card is not currently selected
+        if (!selectedCards.contains(chosenCard)) {
+            selectedCards.append(chosenCard)
+            
+            if (selectedCards.count == 3) {
+                // Check if selected cards form a set
+                if checkSet(in: selectedCards) {
+                    if !deck.cardsInDeck.isEmpty {
+                        if (board.count > 12) {
                             // Remove cards that form set
                             for card in selectedCards {
                                 if let index = getIndexOnBoard(of: card) {
-                                    board[index] = nil
+                                    board.remove(at: index)
                                 }
                                 else {
                                     print("ERROR: Selected card not found in board")
                                 }
                             }
-                            if lookForSetsOnBoard().count == 0 {
-                                print("GAME OVER!")
+                        }
+                        else {
+                            // Subtitute cards in set for new ones from the deck
+                            for card in selectedCards {
+                                if let index = getIndexOnBoard(of: card) {
+                                    addCardToBoard(at: index)
+                                }
+                                else {
+                                    print("ERROR: Selected card not found in board")
+                                }
                             }
                         }
-                        points += 3
                     }
+                    // If deck is empty
                     else {
-                        points -= 3
+                        // Remove cards that form set
+                        for card in selectedCards {
+                            if let index = getIndexOnBoard(of: card) {
+                                board.remove(at: index)
+                            }
+                            else {
+                                print("ERROR: Selected card not found in board")
+                            }
+                        }
+                        if lookForSetsOnBoard().count == 0 {
+                            print("GAME OVER!")
+                        }
                     }
-                    // Clear list of selected cards
-                    selectedCards.removeAll()
+                    points += 3
                 }
+                else {
+                    points -= 3
+                }
+                // Clear list of selected cards
+                selectedCards.removeAll()
             }
-            // If chosen card is already selected, deselect it
-            else {
-                selectedCards.remove( at: selectedCards.index(of: chosenCard)! )
-                points -= 1
-            }
+        }
+        // If chosen card is already selected, deselect it
+        else {
+            selectedCards.remove( at: selectedCards.index(of: chosenCard)! )
+            points -= 1
         }
     }
     
@@ -139,40 +134,23 @@ class SetModel {
         if lookForSetsOnBoard().count != 0 {
             points -= 5
         }
-        if (countOfNotNil(in: board) < 24 && !deck.isEmpty) {
-            var numberOfCardsToAdd = 3
-            for index in 0..<board.count {
-                if (board[index] == nil && numberOfCardsToAdd > 0) {
-                    addCardToBoard(at: index)
-                    numberOfCardsToAdd -= 1
-                }
+        if (!deck.cardsInDeck.isEmpty) {
+            for _ in 1...3 {
+                addCardToBoard(at: nil)
             }
         }
     }
     
     func reset () {
-        board = [Card?]()
+        deck = Deck()
+        board = [Card]()
         selectedCards = [Card]()
-        deck = [Card]()
         points = 0
         
-        generateDeck()
-        
-        // Shuffle cards
-        deck = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: deck) as! [Card]
-        
         // Initialize board with 12 cards
-        for i in 0..<24 {
-            i < 12 ? addCardToBoard(at: nil) : board.append(nil)
+        for _ in 0..<12 {
+            addCardToBoard(at: nil)
         }
-    }
-    
-    func countOfNotNil (in array: [Card?]) -> Int {
-        var count = 0
-        for i in 0..<array.count {
-            if let _ = array[i] { count += 1 }
-        }
-        return count
     }
     
     private func checkSet(in cards: [Card]) -> Bool{
@@ -181,7 +159,7 @@ class SetModel {
     
     private func getIndexOnBoard(of card: Card) -> Int? {
         for index in 0..<board.count {
-            if (board[index] != nil && board[index] == card) {
+            if (board[index] == card) {
                 return index
             }
         }
@@ -190,8 +168,8 @@ class SetModel {
     
     func addCardToBoard (at index: Int?) {
         // Take random card from deck and put it on the board
-        let randomIndex = deck.count.arc4random
-        let randomCard = deck.remove(at: randomIndex)
+        let randomIndex = deck.cardsInDeck.count.arc4random
+        let randomCard = deck.cardsInDeck.remove(at: randomIndex)
         
         if let i = index {
             board[i] = randomCard
@@ -199,72 +177,6 @@ class SetModel {
         else {
             board.append(randomCard)
         }
-    }
-    
-    // This function generates all possible combinations
-    private func generateDeck() {
-        let shapes = ["●", "■", "▲"] // circle, square, triangle
-        let colors = [UIColor.green, UIColor.red, UIColor.blue] // green, red, blue
-        let shading = [[-5.0, 1.0], [-5.0, 0.15], [5.0, 1.0]] // solid, striped, open
-        
-        for shape in shapes {
-            for color in colors {
-                for times in 1...3 {
-                    for shade in shading {
-                        
-                        let attributes: [NSAttributedStringKey : Any] = [
-                            .strokeWidth : shade[0],
-                            .foregroundColor : color.withAlphaComponent(CGFloat(shade[1]))
-                        ]
-                        let attributedString = NSMutableAttributedString(string: shape, attributes: attributes)
-                        
-                        for _ in 1..<times {
-                            attributedString.append( NSAttributedString(string: shape, attributes: attributes) )
-                        }
-                        addCardToDeck(color: color, shape: shape, shade0: shade[0], shade1: shade[1], times: times, attrString: attributedString)
-                    }
-                }
-            }
-        }
-    }
-    
-    private func addCardToDeck(color: UIColor, shape: String, shade0: Double, shade1: Double, times: Int, attrString: NSAttributedString) {
-        
-        var c = Colors.green, sp = Shapes.oval, t = Numbers.one, sd = Shading.open
-        
-        switch color{
-            case UIColor.green: c = Colors.green
-            case UIColor.red: c = Colors.red
-            case UIColor.blue: c = Colors.purple
-            default: break
-        }
-        switch shape{
-            case "●": sp = Shapes.oval
-            case "■": sp = Shapes.diamond
-            case "▲": sp = Shapes.squiggle
-            default: break
-        }
-        switch shade0{
-            case -5.0:
-                if (shade1 == 1.0) {
-                    sd = Shading.solid
-                }
-                else {
-                    sd = Shading.striped
-                }
-            case 5.0: sd = Shading.open
-            default: break
-        }
-        switch times{
-            case 1: t = Numbers.one
-            case 2: t = Numbers.two
-            case 3: t = Numbers.three
-            default: break
-        }
-        
-        // Create card with certain features and add it to the deck
-        let card = Card(content: attrString, color: c, shape: sp, times: t, shade: sd)
-        deck.append(card)
     }
     
     private func getAllCombos(from board: [Card?]) -> [[Card]] {

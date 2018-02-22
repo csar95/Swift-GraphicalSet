@@ -36,7 +36,9 @@ class ViewController: UIViewController {
         
         pointsIPhoneLabel.isHidden = true
         
-        //updateViewFromModel()
+        boardView.board = game.board
+        
+        updateViewFromModel()
     }
 
     @IBAction func touchCard(_ sender: UIButton) {
@@ -65,6 +67,8 @@ class ViewController: UIViewController {
     
     @IBAction func addMoreCards(_ sender: UIButton) {
         game.add3MoreCards()
+        
+        boardView.board = game.board
         updateViewFromModel()
     }
     
@@ -74,6 +78,8 @@ class ViewController: UIViewController {
         }
         pointsIPhoneLabel.isHidden = true
         game.reset()
+        
+        boardView.board = game.board
         updateViewFromModel()
     }
     
@@ -92,11 +98,11 @@ class ViewController: UIViewController {
         if let setsOnBoard = self.game.getIndecesOfSets()
         {
             let randomSet = setsOnBoard.count.arc4random
-            if !self.game.deck.isEmpty {
-                if (self.game.countOfNotNil(in: self.game.board) > 12) {
+            if !self.game.deck.cardsInDeck.isEmpty {
+                if (self.game.board.count > 12) {
                     // Remove cards that form set
                     for index in setsOnBoard[randomSet]{
-                        self.game.board[index] = nil
+                        self.game.board.remove(at: index)
                     }
                 }
                 else {
@@ -110,7 +116,7 @@ class ViewController: UIViewController {
             else {
                 // Remove cards that form set
                 for index in setsOnBoard[randomSet]{
-                    self.game.board[index] = nil
+                    self.game.board.remove(at: index)
                 }
             }
         }
@@ -118,30 +124,7 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
-        for index in 0..<game.board.count {
-            // If there is card in that position
-            if game.board[index] == nil {
-                cardButtons[index].layer.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0)
-                cardButtons[index].layer.borderWidth = 0
-                cardButtons[index].setAttributedTitle(nil, for: UIControlState.normal)
-            }
-            else {
-                cardButtons[index].layer.cornerRadius = 7
-                cardButtons[index].layer.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                
-                if ( game.selectedCards.contains(game.board[index]!) ) {
-                    // If card is selected
-                    cardButtons[index].layer.borderWidth = 3.0
-                    cardButtons[index].layer.borderColor = UIColor.yellow.cgColor
-                }
-                else {
-                    cardButtons[index].layer.borderWidth = 0
-                    cardButtons[index].setAttributedTitle(game.board[index]!.content, for: UIControlState.normal)
-                }
-            }
-        }
-        
-        if (game.deck.count > 0 && game.countOfNotNil(in: game.board) < 24) {
+        if (game.deck.cardsInDeck.count > 0) {
             dealMoreCardsButton.isEnabled = true
         }
         else {

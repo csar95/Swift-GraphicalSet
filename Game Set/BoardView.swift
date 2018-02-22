@@ -11,22 +11,30 @@ import UIKit
 
 class BoardView: UIView {
     
+    var board : [Card] = [] {
+        didSet {
+            draw(bounds)
+            setNeedsDisplay(); setNeedsLayout()
+        }
+    }
+    
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         var grid = Grid(layout: .aspectRatio(0.75), frame: bounds)
-        grid.cellCount = 12
+        grid.cellCount = board.count
         
         for index in 0..<grid.cellCount {
-            drawCard(with: index, in: grid)
+            let card = board[index]
+            drawCard(with: index, in: grid, repeat: card.times, shape: card.shape, with: card.color, shade: card.shade)
         }
     }
     
-    func drawCard(with index: Int, in grid: Grid) {
+    func drawCard(with index: Int, in grid: Grid, repeat times: Numbers, shape: Shapes, with color: Colors, shade: Shading) {
         let roundedRect = UIBezierPath(roundedRect: grid[index]!, cornerRadius: grid.cellSize.height * cornerRadiusCoefficient)
         UIColor.white.setFill()
         roundedRect.fill()
-        drawShapes(for: index, in: grid, repeat: Numbers.three, shape: Shapes.squiggle, with: Colors.red, shade: Shading.solid)
+        drawShapes(for: index, in: grid, repeat: times, shape: shape, with: color, shade: shade)
     }
     
     private func drawShapes(for index: Int, in grid: Grid, repeat times: Numbers, shape: Shapes, with color: Colors, shade: Shading)
@@ -36,13 +44,17 @@ class BoardView: UIView {
         
         switch times {
         case .one:
-            if (shape == .oval) { drawOval(within: boxRect, with: color, shade: shade) }
-            else if (shape == .diamond) { drawDiamond(within: boxRect, with: color, shade: shade) }
-            else { drawSquiggle(within: boxRect, with: color, shade: shade) }
+            let (_, auxRect) = boxRect.divided(atDistance: boxRect.height/3, from: .minYEdge)
+            let (middleRect, _) = auxRect.divided(atDistance: auxRect.height/2, from: .minYEdge)
+            
+            if (shape == .oval) { drawOval(within: middleRect, with: color, shade: shade) }
+            else if (shape == .diamond) { drawDiamond(within: middleRect, with: color, shade: shade) }
+            else { drawSquiggle(within: middleRect, with: color, shade: shade) }
             
             break
         case .two:
-            let (upperRect, lowerRect) = boxRect.divided(atDistance: boxRect.height/2, from: .minYEdge)
+            let (upperRect, auxRect) = boxRect.divided(atDistance: boxRect.height/3, from: .minYEdge)
+            let (_, lowerRect) = auxRect.divided(atDistance: auxRect.height/2, from: .minYEdge)
             
             if (shape == .oval) { drawOval(within: upperRect, with: color, shade: shade); drawOval(within: lowerRect, with: color, shade: shade) }
             else if (shape == .diamond) { drawDiamond(within: upperRect, with: color, shade: shade); drawDiamond(within: lowerRect, with: color, shade: shade) }
@@ -124,6 +136,7 @@ extension BoardView {
             path.fill()
         }
         else {
+            // Saves the entire graphics state (including the clipping) at the time you call it
             UIGraphicsGetCurrentContext()?.saveGState()
             path.addClip()
             switch color {
@@ -136,6 +149,7 @@ extension BoardView {
             }
             drawStripes(in: rect)
             path.stroke()
+            // Returns back to that saved graphics state
             UIGraphicsGetCurrentContext()?.restoreGState()
         }
     }
