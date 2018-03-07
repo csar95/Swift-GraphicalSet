@@ -11,6 +11,7 @@ import UIKit
 
 class BoardView: UIView {
     
+    var game: SetModel = SetModel()
     var board : [Card] = [] {
         didSet {
             draw(bounds)
@@ -26,15 +27,21 @@ class BoardView: UIView {
         
         for index in 0..<grid.cellCount {
             let card = board[index]
-            drawCard(with: index, in: grid, repeat: card.times, shape: card.shape, with: card.color, shade: card.shade)
+            drawCard(with: index, in: grid, card: card)
         }
     }
     
-    func drawCard(with index: Int, in grid: Grid, repeat times: Numbers, shape: Shapes, with color: Colors, shade: Shading) {
+    func drawCard(with index: Int, in grid: Grid, card: Card) {
         let roundedRect = UIBezierPath(roundedRect: grid[index]!, cornerRadius: grid.cellSize.height * cornerRadiusCoefficient)
         UIColor.white.setFill()
         roundedRect.fill()
-        drawShapes(for: index, in: grid, repeat: times, shape: shape, with: color, shade: shade)
+        drawShapes(for: index, in: grid, repeat: card.times, shape: card.shape, with: card.color, shade: card.shade)
+        
+        let tap = MyTapRecognizer( target: grid[index]!, action: #selector(touchCard(_:)) )
+        tap.index = index
+        tap.roundedRect = roundedRect
+        tap.card = card
+        self.addGestureRecognizer(tap)
     }
     
     private func drawShapes(for index: Int, in grid: Grid, repeat times: Numbers, shape: Shapes, with color: Colors, shade: Shading)
@@ -71,6 +78,27 @@ class BoardView: UIView {
             
             break
         }
+    }
+    
+    @objc func touchCard(_ sender: MyTapRecognizer) {
+        
+        switch sender.state {
+        case .ended:
+            
+            game.chooseCard(at: sender.index)
+            
+            if (sender.card.isSelected) {
+                UIColor.white.setStroke()
+                sender.roundedRect.stroke()
+            }
+            else {
+                UIColor.yellow.setStroke()
+                sender.roundedRect.stroke()
+            }
+            
+        default:
+            break
+        } 
     }
 }
 
@@ -166,4 +194,12 @@ extension BoardView {
         }
         path.stroke()
     }
+}
+
+
+
+class MyTapRecognizer: UITapGestureRecognizer {
+    var index = Int()
+    var card = Card(color: Colors.green, shape: Shapes.diamond, times: Numbers.one, shade: Shading.open)
+    var roundedRect = UIBezierPath()
 }

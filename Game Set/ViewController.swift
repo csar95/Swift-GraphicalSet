@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         
         pointsIPhoneLabel.isHidden = true
         
+        boardView.game = game
         boardView.board = game.board
         
         updateViewFromModel()

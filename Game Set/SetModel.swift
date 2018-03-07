@@ -35,7 +35,8 @@ class SetModel {
     
     func chooseCard(at index: Int) {
         
-        let chosenCard = board[index]
+        var chosenCard = board[index]
+        chosenCard.isSelected = (chosenCard.isSelected) ? false : true
         
         // If chosen card is not currently selected
         if (!selectedCards.contains(chosenCard)) {

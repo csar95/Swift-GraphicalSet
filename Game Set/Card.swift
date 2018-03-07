@@ -21,8 +21,8 @@ struct Card: Hashable {
     let shape: Shapes
     let times: Numbers
     let shade: Shading
-        
-    var isMatched = false
+    
+    var isSelected = false
     
     init(color: Colors, shape: Shapes, times: Numbers, shade: Shading)
     {
