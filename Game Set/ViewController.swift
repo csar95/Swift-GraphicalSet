@@ -10,8 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    private var game: SetModel = SetModel()
-
+    @IBOutlet weak var boardView: UIView!
+    private var grid : Grid!
+    private var cardsInBoard = [CardView]()
+    private var game : SetModel!
+    
     private var iPhoneTimer: Timer!
     private var iPhonePoints = 0
     
@@ -19,9 +22,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var playIPhoneButton: UIButton!
     @IBOutlet weak var dealMoreCardsButton: UIButton!
     @IBOutlet weak var cheatButton: UIButton!
-    @IBOutlet var cardButtons: [UIButton]!
-    
-    @IBOutlet weak var boardView: BoardView!
     
     @IBOutlet weak var pointsLabel: UILabel!
     @IBOutlet weak var pointsIPhoneLabel: UILabel!
@@ -36,29 +36,16 @@ class ViewController: UIViewController {
         
         pointsIPhoneLabel.isHidden = true
         
-        boardView.game = game
-        boardView.board = game.board
-        
+        game = SetModel()
         updateViewFromModel()
-    }
-
-    @IBAction func touchCard(_ sender: UIButton) {
-        
-        if let cardIndex = cardButtons.index(of: sender) {
-            game.chooseCard(at: cardIndex)
-            updateViewFromModel()
-        }
-        else {
-            print("Chosen card is not in cardButtons")
-        }
     }
     
     @IBAction func cheat(_ sender: UIButton) {
         if let indecesOfSets = game.getIndecesOfSets() {
             for index in indecesOfSets[0]
             {
-                cardButtons[index].layer.borderWidth = 3.0
-                cardButtons[index].layer.borderColor = UIColor.red.cgColor
+//                cardButtons[index].layer.borderWidth = 3.0
+//                cardButtons[index].layer.borderColor = UIColor.red.cgColor
             }
         }
         else {
@@ -68,8 +55,7 @@ class ViewController: UIViewController {
     
     @IBAction func addMoreCards(_ sender: UIButton) {
         game.add3MoreCards()
-        
-        boardView.board = game.board
+        boardView.subviews.forEach({ $0.removeFromSuperview() })
         updateViewFromModel()
     }
     
@@ -79,13 +65,13 @@ class ViewController: UIViewController {
         }
         pointsIPhoneLabel.isHidden = true
         game.reset()
-        
-        boardView.board = game.board
+        boardView.subviews.forEach({ $0.removeFromSuperview() })
         updateViewFromModel()
     }
     
     @IBAction func playAgainstIPhone(_ sender: UIButton) {
         game.reset()
+        boardView.subviews.forEach({ $0.removeFromSuperview() })
         iPhonePoints = 0
         pointsIPhoneLabel.isHidden = false
         updateViewFromModel()
@@ -124,7 +110,28 @@ class ViewController: UIViewController {
         iPhonePoints += 3
     }
     
+    @objc func onCardTapGesture(_ sender: UITapGestureRecognizer) {
+        switch sender.state {
+        case .ended:
+            let card = sender.view as! CardView
+            var cardIndex = 0
+            
+            for index in 0..<cardsInBoard.count {
+                if (card.card == cardsInBoard[index].card) {
+                    cardIndex = index
+                }
+            }
+            game.chooseCard(at: cardIndex)
+            boardView.subviews.forEach({ $0.removeFromSuperview() })
+            updateViewFromModel()
+        default:
+            break
+        }
+    }
+    
     private func updateViewFromModel() {
+        reloadBoard()
+        
         if (game.deck.cardsInDeck.count > 0) {
             dealMoreCardsButton.isEnabled = true
         }
@@ -136,6 +143,30 @@ class ViewController: UIViewController {
         pointsIPhoneLabel.text = "iPhone: \(iPhonePoints)"
     }
     
+    
+    private func reloadBoard() {
+        grid = Grid(layout: .aspectRatio(0.75), frame: boardView.bounds)
+        grid.cellCount = game.board.count
+        
+        for index in 0..<game.board.count
+        {
+            let cardButton = CardView()
+            cardButton.frame = grid[index]!
+            cardButton.card = game.board[index]
+            cardButton.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0)
+            
+            let tap = UITapGestureRecognizer( target: self, action: #selector(onCardTapGesture) )
+            cardButton.addGestureRecognizer(tap)
+            
+            if (index < cardsInBoard.count) {
+                cardsInBoard[index] = cardButton
+            }
+            else {
+                cardsInBoard.append(cardButton)
+            }
+            boardView.addSubview(cardButton)
+        }
+    }
 }
 
 extension Int {

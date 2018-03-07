@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA1B7FB3203CA2C500F6DD8E /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B7FB2203CA2C500F6DD8E /* Deck.swift */; };
+		AA672C22205006A500612D02 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA672C21205006A500612D02 /* CardView.swift */; };
 		AA73637E201E3A13007D56BE /* CardFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73637D201E3A13007D56BE /* CardFeatures.swift */; };
 		AA7F9223201B97F30029FC08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F9222201B97F30029FC08 /* AppDelegate.swift */; };
 		AA7F9225201B97F30029FC08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F9224201B97F30029FC08 /* ViewController.swift */; };
@@ -16,12 +17,12 @@
 		AA7F922D201B97F30029FC08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA7F922B201B97F30029FC08 /* LaunchScreen.storyboard */; };
 		AA7F9236201BA5830029FC08 /* SetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F9235201BA5830029FC08 /* SetModel.swift */; };
 		AA7F9238201BA6A40029FC08 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F9237201BA6A40029FC08 /* Card.swift */; };
-		AADD94DA20349B0F0072E17C /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADD94D920349B0F0072E17C /* BoardView.swift */; };
 		AADD94DC2034A9020072E17C /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADD94DB2034A9020072E17C /* Grid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AA1B7FB2203CA2C500F6DD8E /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		AA672C21205006A500612D02 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		AA73637D201E3A13007D56BE /* CardFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFeatures.swift; sourceTree = "<group>"; };
 		AA7F921F201B97F20029FC08 /* Game Set.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Set.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA7F9222201B97F30029FC08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -32,7 +33,6 @@
 		AA7F922E201B97F30029FC08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA7F9235201BA5830029FC08 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
 		AA7F9237201BA6A40029FC08 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		AADD94D920349B0F0072E17C /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		AADD94DB2034A9020072E17C /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,7 +70,7 @@
 				AA7F9235201BA5830029FC08 /* SetModel.swift */,
 				AA7F9237201BA6A40029FC08 /* Card.swift */,
 				AA1B7FB2203CA2C500F6DD8E /* Deck.swift */,
-				AADD94D920349B0F0072E17C /* BoardView.swift */,
+				AA672C21205006A500612D02 /* CardView.swift */,
 				AADD94DB2034A9020072E17C /* Grid.swift */,
 				AA73637D201E3A13007D56BE /* CardFeatures.swift */,
 				AA7F9226201B97F30029FC08 /* Main.storyboard */,
@@ -165,7 +165,7 @@
 				AA7F9225201B97F30029FC08 /* ViewController.swift in Sources */,
 				AA7F9236201BA5830029FC08 /* SetModel.swift in Sources */,
 				AA7F9223201B97F30029FC08 /* AppDelegate.swift in Sources */,
-				AADD94DA20349B0F0072E17C /* BoardView.swift in Sources */,
+				AA672C22205006A500612D02 /* CardView.swift in Sources */,
 				AA1B7FB3203CA2C500F6DD8E /* Deck.swift in Sources */,
 				AA7F9238201BA6A40029FC08 /* Card.swift in Sources */,
 				AADD94DC2034A9020072E17C /* Grid.swift in Sources */,
