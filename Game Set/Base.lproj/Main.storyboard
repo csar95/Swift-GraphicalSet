@@ -54,39 +54,8 @@
                                     <constraint firstAttribute="height" constant="40" id="6jK-OM-ehb"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4UU-Xw-h0h">
-                                <rect key="frame" x="29.666666666666657" y="642" width="316" height="40"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fco-dO-VAx">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
-                                        <color key="backgroundColor" red="1" green="0.4156163300987793" blue="0.40698535105006151" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
-                                        <state key="normal" title="Cheat">
-                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cheat:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ECk-sX-40l"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mjz-yJ-vuW">
-                                        <rect key="frame" x="166" y="0.0" width="150" height="40"/>
-                                        <color key="backgroundColor" red="0.065396592766709477" green="0.86140107231091723" blue="0.29004133433829055" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="3Lo-B7-XA2"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="kOc-Pm-XgL"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
-                                        <state key="normal" title="3 more cards">
-                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addMoreCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UoS-as-pT5"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Points: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJh-nY-GaJ">
-                                <rect key="frame" x="259" y="587" width="100" height="35"/>
+                                <rect key="frame" x="259" y="611" width="100" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="14p-B9-U7W"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Xp7-od-9jZ"/>
@@ -96,7 +65,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iPhone: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btW-yV-NBn">
-                                <rect key="frame" x="16" y="587" width="104" height="35"/>
+                                <rect key="frame" x="16" y="611" width="104" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="U9f-xI-0Fh"/>
                                     <constraint firstAttribute="height" constant="35" id="lgR-04-Hui"/>
@@ -106,21 +75,36 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IwH-J9-rq1">
-                                <rect key="frame" x="16" y="60" width="343" height="507"/>
+                                <rect key="frame" x="16" y="60" width="343" height="531"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5A-OZ-Srb">
+                                <rect key="frame" x="112.66666666666669" y="666" width="150" height="36"/>
+                                <color key="backgroundColor" red="1" green="0.41561633009999999" blue="0.4069853511" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="XG4-82-8GS"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="yRA-fw-sXz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
+                                <state key="normal" title="Cheat">
+                                    <color key="titleColor" red="0.23011046590000001" green="0.457829441" blue="0.66666668650000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="cheat:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qOG-Iq-TeT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.23011046590755538" green="0.45782944104814116" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="y5A-OZ-Srb" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0LD-in-IMx"/>
                             <constraint firstItem="kJh-nY-GaJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="btW-yV-NBn" secondAttribute="trailing" constant="100" id="3yo-C4-7xE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IwH-J9-rq1" secondAttribute="trailing" constant="16" id="5Jp-0o-eue"/>
                             <constraint firstItem="btW-yV-NBn" firstAttribute="centerY" secondItem="kJh-nY-GaJ" secondAttribute="centerY" id="6w4-Am-R9z"/>
-                            <constraint firstItem="zFK-Ab-DfC" firstAttribute="top" secondItem="4UU-Xw-h0h" secondAttribute="bottom" constant="40" id="Gxd-tO-GFb"/>
                             <constraint firstItem="kJh-nY-GaJ" firstAttribute="top" secondItem="IwH-J9-rq1" secondAttribute="bottom" constant="20" id="IVn-OZ-36c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zFK-Ab-DfC" secondAttribute="bottom" constant="16" id="MVZ-5c-GbH"/>
+                            <constraint firstItem="y5A-OZ-Srb" firstAttribute="top" secondItem="kJh-nY-GaJ" secondAttribute="bottom" constant="20" id="UC0-iC-9PR"/>
                             <constraint firstItem="zFK-Ab-DfC" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Y42-MO-98f"/>
-                            <constraint firstItem="4UU-Xw-h0h" firstAttribute="top" secondItem="kJh-nY-GaJ" secondAttribute="bottom" constant="20" id="lzl-25-yrU"/>
-                            <constraint firstItem="4UU-Xw-h0h" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="og4-bW-Rp6"/>
+                            <constraint firstItem="zFK-Ab-DfC" firstAttribute="top" secondItem="y5A-OZ-Srb" secondAttribute="bottom" constant="20" id="kLc-EL-Ncg"/>
                             <constraint firstItem="IwH-J9-rq1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="rCO-fs-V2D"/>
                             <constraint firstItem="IwH-J9-rq1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="rKh-sx-9Rb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kJh-nY-GaJ" secondAttribute="trailing" constant="16" id="sL9-oG-kkv"/>
@@ -130,8 +114,7 @@
                     </view>
                     <connections>
                         <outlet property="boardView" destination="IwH-J9-rq1" id="r7q-dU-umQ"/>
-                        <outlet property="cheatButton" destination="fco-dO-VAx" id="nfc-Vp-nxQ"/>
-                        <outlet property="dealMoreCardsButton" destination="mjz-yJ-vuW" id="a2d-jy-UUe"/>
+                        <outlet property="cheatButton" destination="y5A-OZ-Srb" id="Q29-gk-RMA"/>
                         <outlet property="newGameButton" destination="PBz-Kv-7v4" id="L2o-vv-SZD"/>
                         <outlet property="playIPhoneButton" destination="n5J-4Z-T99" id="cfB-3d-cvv"/>
                         <outlet property="pointsIPhoneLabel" destination="btW-yV-NBn" id="O27-eY-yii"/>

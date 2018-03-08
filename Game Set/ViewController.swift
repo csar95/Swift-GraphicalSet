@@ -10,7 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var boardView: UIView!
+    @IBOutlet weak var boardView: UIView! {
+        didSet {
+            let swipe = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeDownGesture))
+            swipe.direction = [.down]
+            boardView.addGestureRecognizer(swipe)
+            let rotate = UIRotationGestureRecognizer(target: self, action: #selector(onRotateGesture))
+            boardView.addGestureRecognizer(rotate)
+        }
+    }
     private var grid : Grid!
     private var cardsInBoard = [CardView]()
     private var game : SetModel!
@@ -20,7 +28,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var newGameButton: UIButton!
     @IBOutlet weak var playIPhoneButton: UIButton!
-    @IBOutlet weak var dealMoreCardsButton: UIButton!
     @IBOutlet weak var cheatButton: UIButton!
     
     @IBOutlet weak var pointsLabel: UILabel!
@@ -31,7 +38,6 @@ class ViewController: UIViewController {
         
         newGameButton.layer.cornerRadius = 15
         playIPhoneButton.layer.cornerRadius = 15
-        dealMoreCardsButton.layer.cornerRadius = 15
         cheatButton.layer.cornerRadius = 15
         
         pointsIPhoneLabel.isHidden = true
@@ -42,20 +48,13 @@ class ViewController: UIViewController {
     
     @IBAction func cheat(_ sender: UIButton) {
         if let indecesOfSets = game.getIndecesOfSets() {
-            for index in indecesOfSets[0]
-            {
-//                cardButtons[index].layer.borderWidth = 3.0
-//                cardButtons[index].layer.borderColor = UIColor.red.cgColor
+            for index in indecesOfSets[0] {
+                game.board[index].formASet = true
             }
         }
         else {
             print("There are no sets on board")
         }
-    }
-    
-    @IBAction func addMoreCards(_ sender: UIButton) {
-        game.add3MoreCards()
-        boardView.subviews.forEach({ $0.removeFromSuperview() })
         updateViewFromModel()
     }
     
@@ -75,8 +74,9 @@ class ViewController: UIViewController {
         iPhonePoints = 0
         pointsIPhoneLabel.isHidden = false
         updateViewFromModel()
-        iPhoneTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(30.arc4random + 20), repeats: true, block: { _ in
+        iPhoneTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(5.arc4random + 20), repeats: true, block: { _ in
             self.playIPhone()
+            self.boardView.subviews.forEach({ $0.removeFromSuperview() })
             self.updateViewFromModel()
         })
     }
@@ -129,22 +129,30 @@ class ViewController: UIViewController {
         }
     }
     
+    @objc func onSwipeDownGesture() {
+        game.add3MoreCards()
+        boardView.subviews.forEach({ $0.removeFromSuperview() })
+        updateViewFromModel()
+    }
+    
+    @objc func onRotateGesture() {
+        game.reshuffleBoard()
+        boardView.subviews.forEach({ $0.removeFromSuperview() })
+        updateViewFromModel()
+    }
+    
     private func updateViewFromModel() {
         reloadBoard()
-        
-        if (game.deck.cardsInDeck.count > 0) {
-            dealMoreCardsButton.isEnabled = true
-        }
-        else {
-            dealMoreCardsButton.isEnabled = false
-        }
         
         pointsLabel.text = "Points: \(game.points)"
         pointsIPhoneLabel.text = "iPhone: \(iPhonePoints)"
     }
     
     
-    private func reloadBoard() {
+    private func reloadBoard()
+    {
+        cardsInBoard.removeAll()
+
         grid = Grid(layout: .aspectRatio(0.75), frame: boardView.bounds)
         grid.cellCount = game.board.count
         
@@ -157,14 +165,11 @@ class ViewController: UIViewController {
             
             let tap = UITapGestureRecognizer( target: self, action: #selector(onCardTapGesture) )
             cardButton.addGestureRecognizer(tap)
-            
-            if (index < cardsInBoard.count) {
-                cardsInBoard[index] = cardButton
-            }
-            else {
-                cardsInBoard.append(cardButton)
-            }
+        
+            cardsInBoard.append(cardButton)
+        
             boardView.addSubview(cardButton)
+            game.board[index].formASet = false
         }
     }
 }

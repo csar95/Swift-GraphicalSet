@@ -35,8 +35,8 @@ class SetModel {
     
     func chooseCard(at index: Int) {
         
-        var chosenCard = board[index]
-        chosenCard.isSelected = (chosenCard.isSelected) ? false : true
+        let chosenCard = board[index]
+        board[index].isSelected = (chosenCard.isSelected) ? false : true
         
         // If chosen card is not currently selected
         if (!selectedCards.contains(chosenCard)) {
@@ -90,6 +90,12 @@ class SetModel {
                     points -= 3
                 }
                 // Clear list of selected cards
+                for card in board {
+                    if (selectedCards.contains(card)) {
+                        let cardIndex = board.index(of: card)!
+                        board[cardIndex].isSelected = false
+                    }
+                }
                 selectedCards.removeAll()
             }
         }
@@ -130,7 +136,7 @@ class SetModel {
         return setsOnBoard
     }
     
-    func add3MoreCards () {
+    func add3MoreCards() {
         // Penalize pressing "3 More Cards" if there is a set available in the visible cards
         if lookForSetsOnBoard().count != 0 {
             points -= 5
@@ -142,7 +148,7 @@ class SetModel {
         }
     }
     
-    func reset () {
+    func reset() {
         deck = Deck()
         board = [Card]()
         selectedCards = [Card]()
@@ -152,6 +158,10 @@ class SetModel {
         for _ in 0..<12 {
             addCardToBoard(at: nil)
         }
+    }
+    
+    func reshuffleBoard() {
+        board = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: board) as! [Card]
     }
     
     private func checkSet(in cards: [Card]) -> Bool{

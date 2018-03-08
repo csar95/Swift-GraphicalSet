@@ -23,6 +23,7 @@ struct Card: Hashable {
     let shade: Shading
     
     var isSelected = false
+    var formASet = false
     
     init(color: Colors, shape: Shapes, times: Numbers, shade: Shading)
     {

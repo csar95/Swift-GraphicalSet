@@ -25,6 +25,12 @@ class CardView: UIView {
         
         if (card.isSelected) {
             UIColor.yellow.setStroke()
+            roundedRect.lineWidth = 5
+            roundedRect.stroke()
+        }
+        if (card.formASet) {
+            UIColor.red.setStroke()
+            roundedRect.lineWidth = 5
             roundedRect.stroke()
         }
         
